@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CursorLockHandler : MonoBehaviour
 {
-    bool cursorIsLocked = true;
-    bool lockCursor = true;
+    bool cursorIsLocked = false;
+    bool lockCursor = false;
     [SerializeField] bool useCursorLock = true;
 
     // TODO FIX THIS
@@ -44,12 +44,21 @@ public class CursorLockHandler : MonoBehaviour
         {
             ForceShowCursor();
         }
+        if (SettingsManager.hideMenuWhenScreenFocused && EmulatorManager.cameraIsZoomed)
+        {
+            ForceHideCursor();
+        }
     }
 
     void ForceShowCursor()
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+    }
+    void ForceHideCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void InternalLockUpdate()

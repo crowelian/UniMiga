@@ -8,6 +8,7 @@ public class EmulatorMenuManager : MonoBehaviour
 
 
     [SerializeField] GameObject toolbar;
+    [SerializeField] Image toolbarBackgroundImage;
     public static bool showToolbar = false;
 
     // Start is called before the first frame update
@@ -24,8 +25,6 @@ public class EmulatorMenuManager : MonoBehaviour
         {
             ShowToolbar();
         }
-
-        Debug.Log("SHOW TOOLBAR: " + showToolbar);
     }
 
 
@@ -37,6 +36,7 @@ public class EmulatorMenuManager : MonoBehaviour
         {
             child.gameObject.SetActive(false);
         }
+        toolbarBackgroundImage.enabled = false;
     }
     void ShowToolbar()
     {
@@ -46,6 +46,7 @@ public class EmulatorMenuManager : MonoBehaviour
         {
             child.gameObject.SetActive(true);
         }
+        toolbarBackgroundImage.enabled = true;
     }
 
     // void CheckCursorHitToMenu()
