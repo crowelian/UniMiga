@@ -36,8 +36,20 @@ public class CursorLockHandler : MonoBehaviour
 
     public void UpdateCursorLock()
     {
+
         if (lockCursor)
             InternalLockUpdate();
+
+        if (EmulatorMenuManager.showToolbar)
+        {
+            ForceShowCursor();
+        }
+    }
+
+    void ForceShowCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void InternalLockUpdate()
@@ -46,7 +58,7 @@ public class CursorLockHandler : MonoBehaviour
         {
             cursorIsLocked = false;
         }
-        else if (Input.GetMouseButtonUp(0) && !EmulatorMenuManager.showToolbar)
+        else if (Input.GetMouseButtonUp(0))
         {
             cursorIsLocked = true;
         }

@@ -9,7 +9,6 @@ public class EmulatorMenuManager : MonoBehaviour
 
     [SerializeField] GameObject toolbar;
     public static bool showToolbar = false;
-    [SerializeField] CursorLockHandler cursorLock;
 
     // Start is called before the first frame update
     void Start()
@@ -25,18 +24,28 @@ public class EmulatorMenuManager : MonoBehaviour
         {
             ShowToolbar();
         }
+
+        Debug.Log("SHOW TOOLBAR: " + showToolbar);
     }
 
 
     public void HideToolbarMenu()
     {
         showToolbar = false;
-        toolbar.SetActive(false);
+        //toolbar.SetActive(false);
+        foreach (Transform child in toolbar.transform)
+        {
+            child.gameObject.SetActive(false);
+        }
     }
     void ShowToolbar()
     {
         showToolbar = true;
-        toolbar.SetActive(true);
+        //toolbar.SetActive(true);
+        foreach (Transform child in toolbar.transform)
+        {
+            child.gameObject.SetActive(true);
+        }
     }
 
     // void CheckCursorHitToMenu()

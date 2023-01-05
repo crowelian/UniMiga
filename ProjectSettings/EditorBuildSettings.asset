@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/3rdParty/_Project/Scenes/Basic.unity
-    guid: 4dec2b5f7296ef041ae3606f3e0e3fc1
+    path: Assets/Scenes/Amiga_Scene.unity
+    guid: b1e9483dbb5ef054db4611cd5ac83c81
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 5b26d5ad2c07613498544cbda1b2f697,
       type: 2}
