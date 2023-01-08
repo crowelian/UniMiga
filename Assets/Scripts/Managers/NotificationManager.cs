@@ -4,7 +4,15 @@ using UnityEngine.UI;
 // simple notification system... 
 public class NotificationManager : MonoBehaviour
 {
+    public static NotificationManager Instance;
     public GameObject notificationPrefab;
+    void Awake()
+    {
+        if (Instance != null)
+        { Destroy(this); }
+        else
+            Instance = this;
+    }
 
     public void ShowNotification(string message, float notificationDuration = 5f)
     {
