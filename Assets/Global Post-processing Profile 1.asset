@@ -1,5 +1,55 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4988763391032457900
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 510746ac601654c2db0b500a9431aec1, type: 3}
+  m_Name: RLProTVEffect
+  m_EditorClassIdentifier: 
+  active: 0
+  enabled:
+    overrideState: 1
+    value: 1
+  fade:
+    overrideState: 1
+    value: 1
+  maskDark:
+    overrideState: 1
+    value: 1.405
+  maskLight:
+    overrideState: 1
+    value: 1.5
+  hardScan:
+    overrideState: 1
+    value: -8
+  resScale:
+    overrideState: 1
+    value: 1.31
+  hardPix:
+    overrideState: 1
+    value: -3
+  warpMode:
+    overrideState: 1
+    value: 0
+  warp:
+    overrideState: 1
+    value: {x: 0.03125, y: 0.04166}
+  scale:
+    overrideState: 1
+    value: 0.15
+  mask:
+    overrideState: 0
+    value: {fileID: 0}
+    defaultState: 1
+  maskChannel:
+    overrideState: 0
+    value: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14,6 +64,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settings:
   - {fileID: 7973622748019121101}
+  - {fileID: -4988763391032457900}
 --- !u!114 &7973622748019121101
 MonoBehaviour:
   m_ObjectHideFlags: 3

@@ -15360,6 +15360,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4295807151912144550, guid: ab26f2523e8835f48b416b2e8c60a8ac,
+        type: 3}
+      propertyPath: m_ChildAlignment
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4295807151924163629, guid: ab26f2523e8835f48b416b2e8c60a8ac,
         type: 3}
       propertyPath: m_SizeDelta.y
