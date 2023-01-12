@@ -10,11 +10,11 @@ public class EmulatorManager : MonoBehaviour
     public string currentSystem = "PUAE";
     [SerializeField] bool isRunning = false;
     [SerializeField] bool isPaused = false;
-    [SerializeField] bool debugCamIsInPos = false;
+    [SerializeField] bool camIsInPos = false;
     [SerializeField] LibretroInstance _libretro;
     [SerializeField] LayerMask gameSystemLayerMask;
-    bool debugStartedFromDisk = false;
-    [SerializeField] bool debugCanStart = false;
+    bool startedFromDisk = false;
+    [SerializeField] bool canStart = false;
     [SerializeField] GameObject insertedDisk;
 
     // TODO put this to right place now just testing!
@@ -48,19 +48,17 @@ public class EmulatorManager : MonoBehaviour
 
         SettingsLogic();
 
-        LoadGameMediaDebug();
+        LoadGameMedia();
     }
 
-
-    async void LoadGameMediaDebug()
+    string gamePath = null;
+    async void LoadGameMedia()
     {
-
-
-        if (debugCanStart && !DragAndDrop.grabbedGameMedia)
+        if (canStart && !DragAndDrop.grabbedGameMedia)
         {
-            debugCanStart = false;
-            StartEmulatorContent();
-            debugStartedFromDisk = true;
+            canStart = false;
+            LoadMainMediaFromDisk(gamePath);
+            startedFromDisk = true;
         }
 
         if (DragAndDrop.grabbedGameMedia)
@@ -68,40 +66,60 @@ public class EmulatorManager : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit raycastHit, 10f, gameSystemLayerMask))
             {
-                if (debugCanStart == false)
+                if (canStart == false)
                 {
                     NotificationManager.Instance.ShowNotification("\n\n\nLOAD THIS GAME?", 1f);
                     NotificationManager.Instance.ShowNotification("\n\n\nLOAD THIS GAME?", 2f);
                 }
 
-                debugCanStart = true;
+
                 insertedDisk = DragAndDrop.Instance.GetGrabbableGameObject();
+                gamePath = insertedDisk.GetComponent<GameMedia>().GetGamePath();
+                //Debug.Log("LoadGameMedia gamePath: " + gamePath);
+                canStart = true;
 
 
             }
             else
             {
                 await Task.Delay(5);
-                debugCanStart = false;
+                canStart = false;
             }
 
         }
         else
         {
             await Task.Delay(5);
-            debugCanStart = false;
-            if (!debugStartedFromDisk)
+            canStart = false;
+            if (!startedFromDisk)
             {
                 insertedDisk = null;
             }
         }
     }
 
+    void LoadMainMediaFromDisk(string filePath)
+    {
+        //Debug.Log("LoadMainMediaFromDisk:" + filePath);
+        string gamesDirectory = System.IO.Path.GetDirectoryName(filePath).Replace("\\", "/");
+        Debug.Log(gamesDirectory);
+        string firstDisk = System.IO.Path.GetFileNameWithoutExtension(filePath); //GetFileName did not work...
+        StopEmulatorContent();
+        _libretro.SetGame(gamesDirectory, firstDisk);
+        StartEmulatorContent();
+    }
+
+    void LoadSecondDriveMediaFromDisk(string filePath)
+    {
+        Debug.Log("TODO");
+    }
+
+
     void SettingsLogic()
     {
         if (SettingsManager.hideMenuWhenScreenFocused)
         {
-            if (debugCamIsInPos)
+            if (camIsInPos)
             {
 
                 emuMenuManager.HideToolbarMenu();
@@ -111,7 +129,7 @@ public class EmulatorManager : MonoBehaviour
 
         if (SettingsManager.disableControlIfNotInFocusMode)
         {
-            if (debugCamIsInPos == false)
+            if (camIsInPos == false)
             {
                 EnableEmulatorInput(false);
             }
@@ -131,6 +149,8 @@ public class EmulatorManager : MonoBehaviour
     {
         Debug.Log("Start game!");
         _libretro.StartContent();
+        SK.Libretro.Examples.EmulatorStatus.emulatorIsRunning = true;
+
     }
 
     public void StopEmulatorContent()
@@ -149,8 +169,8 @@ public class EmulatorManager : MonoBehaviour
         {
             camPosSwitcher.SwitchPosition();
         }
-        debugCamIsInPos = camPosSwitcher.GetIsInPosition();
-        if (debugCamIsInPos)
+        camIsInPos = camPosSwitcher.GetIsInPosition();
+        if (camIsInPos)
         {
             cameraIsZoomed = true;
             camMouseLook.enabled = false;

@@ -16,6 +16,12 @@ public class GameMedia : MonoBehaviour
         }
     }
 
+    public string GetGamePath()
+    {
+        //Debug.Log("GetGamePath():" + Application.streamingAssetsPath.ToString() + game.path);
+        return Application.streamingAssetsPath.ToString() + "/" + game.path;
+    }
+
     // Update is called once per frame
     void Update()
     {

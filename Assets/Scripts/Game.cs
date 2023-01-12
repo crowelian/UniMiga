@@ -6,6 +6,7 @@ using UnityEngine;
 [Serializable]
 public class Game
 {
+    [Header("Filepath inside StreamingAssets/")]
     public string path;
     public string title;
 }
